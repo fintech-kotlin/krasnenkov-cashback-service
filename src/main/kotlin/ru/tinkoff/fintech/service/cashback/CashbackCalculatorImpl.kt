@@ -12,38 +12,46 @@ internal const val MCC_BEER = 5921
 
 class CashbackCalculatorImpl : CashbackCalculator {
 
+    /**
+     * Список правил начисления кешбека
+     */
+    private val rules = mutableListOf<CashbackRule>()
+
+    init {
+        rules.add(BlackRule())
+        rules.add(Devil666Rule())
+        rules.add(AllComputerRule())
+        rules.add(BeerRule())
+    }
 
     /**
      * Логика расчета кешбека.
+     * Считается максиальный кешбек среди всех правил.
+     * Если правило возвращает кешбек, который суммируется с максимальным, то суммируем.
      */
     override fun calculateCashback(transactionInfo: TransactionInfo): Double {
-        var maxRuleCashback = 0.0
         var addToTotalCashback = 0.0
+        var totalCashback = 0.0
 
-        for (rule in buildRules()) {
+        for (rule in rules) {
+            val cashback = rule.calculateCashback(transactionInfo)
+
             if (rule.isAddToTotal()) {
-                addToTotalCashback += rule.calculateCashback(transactionInfo)
+                addToTotalCashback += cashback
             } else {
-                val cashback = rule.calculateCashback(transactionInfo)
-                if (cashback > maxRuleCashback) {
-                    maxRuleCashback = cashback
+                if (cashback > totalCashback) {
+                    totalCashback = cashback
                 }
             }
+        }
+        totalCashback += addToTotalCashback
 
+        //Расчитанный кешбек не должен превышать максимальный за период
+        if (totalCashback + transactionInfo.cashbackTotalValue > MAX_CASH_BACK) {
+            totalCashback = MAX_CASH_BACK - transactionInfo.cashbackTotalValue
         }
 
-        maxRuleCashback += addToTotalCashback
-
-        return if (maxRuleCashback > MAX_CASH_BACK) MAX_CASH_BACK else maxRuleCashback
-    }
-
-    fun buildRules(): List<CashbackRule> {
-        val r1 = BlackRule()
-        val r2 = Devil666Rule()
-        val r3 = AllComputerRule()
-        val r4 = BeerRule()
-
-        return listOf(r1, r2, r3, r4)
+        return totalCashback
     }
 
 
