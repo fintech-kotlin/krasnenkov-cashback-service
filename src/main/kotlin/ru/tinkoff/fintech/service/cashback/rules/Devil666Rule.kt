@@ -2,6 +2,9 @@ package ru.tinkoff.fintech.service.cashback.rules
 
 import ru.tinkoff.fintech.model.TransactionInfo
 
+/**
+ * Если сумма транзакции 666 или кратна 666, то дополнительно начислить 6.66
+ */
 class Devil666Rule : CashbackRule {
     override fun calculateCashback(transactionInfo: TransactionInfo): Double {
         if (transactionInfo.transactionSum == 666.0) {
@@ -13,6 +16,5 @@ class Devil666Rule : CashbackRule {
     override fun isAddToTotal(): Boolean {
         return true
     }
-
 
 }
