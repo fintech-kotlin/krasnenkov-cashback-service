@@ -25,21 +25,19 @@ class AllComputerRule : CashbackRule {
      * сумма операции в копейках с заменой не более 1 цифры является палиндромом
      */
     private fun isPartialPalindrom(sum: Double): Boolean {
+        val pennyStr = (sum * 100).toString()
+        val penny = pennyStr.substring(0, pennyStr.indexOf(".")) //количество копеек
 
-        val penny = (sum * 100).toString()
-        val penny2 = penny.substring(0, penny.indexOf("."))
-
-        var i = 0
+        var i = 0 // итератор по строке
         var numOfEqualChars = 0
-        val t = penny2.length / 2
 
-        while (i < t) {
-            if (penny2[i] == penny2[penny2.length - i - 1]) {
+        while (i < penny.length / 2) {
+            if (penny[i] == penny[penny.length - i - 1]) {
                 numOfEqualChars++
             }
             i++
         }
-        return numOfEqualChars >= t - 1
+        return numOfEqualChars >= penny.length / 2 - 1
     }
 
     /**
@@ -52,16 +50,11 @@ class AllComputerRule : CashbackRule {
 
 
     //НОД
-    private fun nod(a: Int, b: Int): Int {
+    private tailrec fun nod(a: Int, b: Int): Int {
         return if (b == 0) a else nod(b, a % b)
     }
 
     //НОК
-    private fun nok(a: Int, b: Int): Int {
-        return a / nod(a, b) * b
-    }
+    private fun nok(a: Int, b: Int) = a / nod(a, b) * b
 
-    override fun isAddToTotal(): Boolean {
-        return false
-    }
 }
