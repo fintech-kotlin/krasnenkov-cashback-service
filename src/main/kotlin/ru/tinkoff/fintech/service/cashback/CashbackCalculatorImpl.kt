@@ -15,14 +15,14 @@ class CashbackCalculatorImpl : CashbackCalculator {
     /**
      * Список правил начисления кешбека
      */
-    private val rules = mutableListOf<CashbackRule>()
+    private val rules = mutableListOf(
+        BlackRule(),
+        Devil666Rule(),
+        AllComputerRule(),
+        AllComputerRule(),
+        BeerRule()
+    )
 
-    init {
-        rules.add(BlackRule())
-        rules.add(Devil666Rule())
-        rules.add(AllComputerRule())
-        rules.add(BeerRule())
-    }
 
     /**
      * Логика расчета кешбека.
@@ -36,13 +36,12 @@ class CashbackCalculatorImpl : CashbackCalculator {
         for (rule in rules) {
             val cashback = rule.calculateCashback(transactionInfo)
 
-            if (rule.isAddToTotal()) {
+            if (rule.isAddToTotal) {
                 addToTotalCashback += cashback
-            } else {
-                if (cashback > totalCashback) {
-                    totalCashback = cashback
-                }
+            } else if (cashback > totalCashback) {
+                totalCashback = cashback
             }
+
         }
         totalCashback += addToTotalCashback
 
@@ -53,6 +52,4 @@ class CashbackCalculatorImpl : CashbackCalculator {
 
         return totalCashback
     }
-
-
 }

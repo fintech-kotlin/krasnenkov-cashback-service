@@ -14,7 +14,4 @@ class BlackRule : CashbackRule {
         else 0.0
     }
 
-    override fun isAddToTotal(): Boolean {
-        return false
-    }
 }

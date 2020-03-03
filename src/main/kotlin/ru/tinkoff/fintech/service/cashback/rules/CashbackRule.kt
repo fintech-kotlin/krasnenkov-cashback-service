@@ -14,10 +14,10 @@ interface CashbackRule {
     fun calculateCashback(transactionInfo: TransactionInfo): Double
 
     /**
-     * Кешбек сумируется с другими кешбеками
+     * Свойство определяющее, что кешбек правила суммируется с кешбеком от других правил.
      */
-    fun isAddToTotal(): Boolean
-
+    val isAddToTotal: Boolean
+        get() = false
 
     /**
      * Округление до двух знаков после запятой (копейки).

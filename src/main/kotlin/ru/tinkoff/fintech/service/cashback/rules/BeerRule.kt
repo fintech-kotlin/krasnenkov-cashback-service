@@ -6,6 +6,10 @@ import ru.tinkoff.fintech.service.cashback.MCC_BEER
 import java.time.LocalDate
 import java.time.Month
 
+
+const val SPECIAL_FIRST_NAME = "олег"
+const val SPECIAL_LAST_NAME = "олегов"
+
 /**
  * Если программа лояльности "BEER" и mcc код = 5921 и
  * a. Ваше имя "Олег" (без учета регистра) и фамилия Олегов (без учета регистра) то 10% кешбека
@@ -17,9 +21,6 @@ import java.time.Month
  * e.иначе 2% кешбека.
  */
 class BeerRule : CashbackRule {
-
-    private val specialFirstName = "Олег".toLowerCase()
-    private val specialSecondName = "Олегов".toLowerCase()
 
     private val monthWithFirstLetter = mapOf(
         Month.JANUARY.value to 'я',
@@ -40,15 +41,14 @@ class BeerRule : CashbackRule {
 
         if (transactionInfo.loyaltyProgramName == LOYALTY_PROGRAM_BEER
             && transactionInfo.mccCode == MCC_BEER
-        ) {
-            return when {
-                checkFor10(transactionInfo) -> round(transactionInfo.transactionSum * 0.1)
-                checkFor7(transactionInfo) -> round(transactionInfo.transactionSum * 0.07)
-                checkFor5(transactionInfo) -> round(transactionInfo.transactionSum * 0.05)
-                checkFor3(transactionInfo) -> round(transactionInfo.transactionSum * 0.03)
-                else -> round(transactionInfo.transactionSum * 0.02)
-            }
+        ) return when {
+            checkFor10(transactionInfo) -> round(transactionInfo.transactionSum * 0.1)
+            checkFor7(transactionInfo) -> round(transactionInfo.transactionSum * 0.07)
+            checkFor5(transactionInfo) -> round(transactionInfo.transactionSum * 0.05)
+            checkFor3(transactionInfo) -> round(transactionInfo.transactionSum * 0.03)
+            else -> round(transactionInfo.transactionSum * 0.02)
         }
+
         return 0.0
     }
 
@@ -56,15 +56,15 @@ class BeerRule : CashbackRule {
      * Ваше имя "Олег" (без учета регистра) и фамилия Олегов (без учета регистра) то 10% кешбека
      */
     private fun checkFor10(transactionInfo: TransactionInfo): Boolean {
-        return transactionInfo.firstName.toLowerCase() == specialFirstName
-                && transactionInfo.lastName.toLowerCase() == specialSecondName
+        return transactionInfo.firstName.toLowerCase() == SPECIAL_FIRST_NAME
+                && transactionInfo.lastName.toLowerCase() == SPECIAL_LAST_NAME
     }
 
     /**
      * Ваше имя "Олег" (без учета регистра) то начислить 7% кешбека
      */
     private fun checkFor7(transactionInfo: TransactionInfo): Boolean {
-        return transactionInfo.firstName.toLowerCase() == specialFirstName
+        return transactionInfo.firstName.toLowerCase() == SPECIAL_FIRST_NAME
     }
 
     /**
@@ -73,7 +73,6 @@ class BeerRule : CashbackRule {
      */
     private fun checkFor5(transactionInfo: TransactionInfo): Boolean {
         val currentMonth = monthWithFirstLetter[LocalDate.now().month.value].toString()
-
         return transactionInfo.firstName.toLowerCase().startsWith(currentMonth)
     }
 
@@ -88,7 +87,4 @@ class BeerRule : CashbackRule {
                 || transactionInfo.firstName.toLowerCase().startsWith(nextMonth)
     }
 
-    override fun isAddToTotal(): Boolean {
-        return false
-    }
 }
