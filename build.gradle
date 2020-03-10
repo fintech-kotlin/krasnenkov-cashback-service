@@ -11,6 +11,10 @@ plugins {
 group 'ru.tinkoff.fintech'
 version '1.0-SNAPSHOT'
 
+noArg {
+    annotation("ru.tinkoff.fintech.NoArg")
+}
+
 repositories {
     mavenCentral()
     jcenter()
@@ -60,7 +64,6 @@ dependencies {
 }
 
 test {
-    useJUnitPlatform()
 }
 
 compileKotlin {
@@ -68,4 +71,8 @@ compileKotlin {
 }
 compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
+}
+
+sourceSets {
+    main.java.srcDirs += 'src/main/kotlin'
 }

@@ -1,5 +1,8 @@
 package ru.tinkoff.fintech.service.notification
 
+import org.springframework.stereotype.Component
+
+@Component
 class CardNumberMaskerImpl : CardNumberMasker {
 
     /**
