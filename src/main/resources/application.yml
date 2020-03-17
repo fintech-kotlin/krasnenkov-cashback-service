@@ -34,3 +34,4 @@ spring:
       properties:
         request.timeout.ms: 70000
         spring.json.type.mapping: ru.tinkoff.bpm.kotlincoursepaymentprocessing.kafka.TransactionInfo:ru.tinkoff.fintech.model.Transaction
+
