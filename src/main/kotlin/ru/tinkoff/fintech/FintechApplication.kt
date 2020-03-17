@@ -7,8 +7,8 @@ import org.springframework.kafka.annotation.EnableKafka
 
 @SpringBootApplication
 @EnableKafka
-open class FintechApplication {
-    fun main(args: Array<String>) {
-        SpringApplication.run(FintechApplication::class.java, *args)
-    }
+open class FintechApplication
+
+fun main(args: Array<String>) {
+    SpringApplication.run(FintechApplication::class.java, *args)
 }

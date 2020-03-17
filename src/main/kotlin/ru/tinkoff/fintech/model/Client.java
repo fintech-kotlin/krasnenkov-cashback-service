@@ -19,13 +19,15 @@ import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;//отсутствовала
+import java.util.Objects;
 
 /**
+ * If you want, you can generate client model from swagger and use it.
  * Client
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-03-08T02:12:21.631+03:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.JavaClientCodegen", date = "2020-02-26T16:48:46.611+03:00")
 public class Client {
+
   @JsonProperty("birthDate")
   private LocalDate birthDate = null;
 
@@ -49,10 +51,10 @@ public class Client {
     return this;
   }
 
-   /**
+  /**
    * Get birthDate
    * @return birthDate
-  **/
+   **/
   @ApiModelProperty(value = "")
   public LocalDate getBirthDate() {
     return birthDate;
@@ -188,7 +190,7 @@ public class Client {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Client {\n");
-    
+
     sb.append("    birthDate: ").append(toIndentedString(birthDate)).append("\n");
     sb.append("    cards: ").append(toIndentedString(cards)).append("\n");
     sb.append("    firstName: ").append(toIndentedString(firstName)).append("\n");

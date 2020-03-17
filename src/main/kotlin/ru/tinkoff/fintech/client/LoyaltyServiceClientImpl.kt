@@ -4,14 +4,16 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import org.springframework.web.client.RestTemplate
 import ru.tinkoff.fintech.model.LoyaltyProgram
+import ru.tinkoff.fintech.utils.getForObjectWithEmptyBodyResponseCheck
 
 @Service
-class LoyaltyServiceClientImpl : LoyaltyServiceClient {
+class LoyaltyServiceClientImpl(
+    private val restTemplate: RestTemplate,
     @Value("\${services.url.loyalty}")
-    lateinit var url: String
+    private val url: String
+) : LoyaltyServiceClient {
 
     override fun getLoyaltyProgram(id: String): LoyaltyProgram {
-        val template = RestTemplate()
-        return template.getForObject("$url$id", LoyaltyProgram::class.java)!!
+        return restTemplate.getForObjectWithEmptyBodyResponseCheck("$url$id", LoyaltyProgram::class.java)
     }
 }

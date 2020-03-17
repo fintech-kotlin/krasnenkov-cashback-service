@@ -1,6 +1,5 @@
 package ru.tinkoff.fintech.service.transaction
 
-
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import ru.tinkoff.fintech.client.CardServiceClient
@@ -15,17 +14,16 @@ import ru.tinkoff.fintech.service.notification.NotificationMessageGenerator
 
 @Service
 class TransactionServiceImpl(
-    val cardService: CardServiceClient,
-    val clientService: ClientService,
-    val loyaltyService: LoyaltyServiceClient,
-    val loyaltyPaymentRepository: LoyaltyPaymentRepository,
-    val notificationMessageGenerator: NotificationMessageGenerator,
-    val cashbackCalculator: CashbackCalculator,
-    val notificationService: NotificationServiceClient
-) : TransactionService {
-
+    private val cardService: CardServiceClient,
+    private val clientService: ClientService,
+    private val loyaltyService: LoyaltyServiceClient,
+    private val loyaltyPaymentRepository: LoyaltyPaymentRepository,
+    private val notificationMessageGenerator: NotificationMessageGenerator,
+    private val cashbackCalculator: CashbackCalculator,
+    private val notificationService: NotificationServiceClient,
     @Value("\${loyalty.payment.sign}")
-    lateinit var loyaltyPaymentSign: String
+    private val loyaltyPaymentSign: String
+) : TransactionService {
 
     override fun handleTransaction(transaction: Transaction) {
         val card = cardService.getCard(transaction.cardNumber)
