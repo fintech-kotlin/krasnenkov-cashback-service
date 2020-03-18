@@ -12,6 +12,9 @@ import ru.tinkoff.fintech.model.*
 import ru.tinkoff.fintech.service.cashback.CashbackCalculator
 import ru.tinkoff.fintech.service.notification.NotificationMessageGenerator
 
+/**
+ * Сервис обработки транзакций от кафки.
+ */
 @Service
 class TransactionServiceImpl(
     private val cardService: CardServiceClient,
@@ -42,7 +45,6 @@ class TransactionServiceImpl(
         )
         val cashback = cashbackCalculator.calculateCashback(transactionInfo)
 
-        // В ТЗ не сказано, додумал сам, что если не операция покупки, то кэшбек начислять не надо
         if (cashback == 0.0 || transactionInfo.mccCode == null) return
         saveLoyaltyPaymentInfo(card, cashback, transaction)
         sendNotification(transactionInfo, transaction, cashback, client)

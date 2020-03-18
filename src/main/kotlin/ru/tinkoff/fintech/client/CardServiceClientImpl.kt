@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import org.springframework.web.client.RestTemplate
 import ru.tinkoff.fintech.model.Card
-import ru.tinkoff.fintech.utils.getForObjectWithEmptyBodyResponseCheck
 
 @Service
 class CardServiceClientImpl(
@@ -13,7 +12,7 @@ class CardServiceClientImpl(
     private val url: String
 ) : CardServiceClient {
 
-    override fun getCard(cardNumber: String): Card {
-        return restTemplate.getForObjectWithEmptyBodyResponseCheck("$url$cardNumber", Card::class.java)
-    }
+    override fun getCard(cardNumber: String): Card =
+        restTemplate.getForObject("$url$cardNumber", Card::class.java, mapOf("id" to cardNumber))!!
+
 }
