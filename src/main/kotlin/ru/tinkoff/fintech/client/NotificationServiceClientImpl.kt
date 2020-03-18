@@ -7,6 +7,9 @@ import org.springframework.http.MediaType
 import org.springframework.stereotype.Service
 import org.springframework.web.client.RestTemplate
 
+/**
+ * Сервис нотификации клиента об начислении кешбека
+ */
 @Service
 class NotificationServiceClientImpl(
     private val restTemplate: RestTemplate,

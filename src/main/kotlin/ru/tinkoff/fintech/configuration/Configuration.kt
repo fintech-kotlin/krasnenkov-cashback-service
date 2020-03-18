@@ -7,6 +7,9 @@ import org.springframework.web.client.DefaultResponseErrorHandler
 import org.springframework.web.client.RestTemplate
 import java.time.Duration
 
+/**
+ * REST-шаблон
+ */
 @Configuration
 class Configuration {
     @Bean

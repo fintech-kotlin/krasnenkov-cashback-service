@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service
 import ru.tinkoff.fintech.model.Transaction
 import ru.tinkoff.fintech.service.transaction.TransactionService
 
+/**
+ * Сервис приема сообщений от кафки.
+ */
 @Service
 class TransactionListener(
     private val transactionService: TransactionService
