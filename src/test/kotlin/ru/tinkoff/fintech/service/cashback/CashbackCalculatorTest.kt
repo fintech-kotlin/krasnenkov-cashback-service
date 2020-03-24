@@ -62,19 +62,6 @@ class CashbackCalculatorTest {
         assertEquals(13.32, cashbackSum)
     }
 
-    @Test
-    fun `cash back for sums divisible on 666 * 3 increases on 6,66`() {
-        val transactionInfo = TransactionInfo(
-            loyaltyProgramName = LOYALTY_PROGRAM_BLACK,
-            transactionSum = 666.0 * 3,
-            cashbackTotalValue = 1000.0,
-            firstName = "testFirstName",
-            lastName = "testLastName"
-        )
-        val cashbackSum = observable.calculateCashback(transactionInfo)
-        assertEquals(26.64, cashbackSum)
-    }
-
 
     @Test
     fun `cash back for palindrome sums with one replace and mcc = 5734 and loyalty ALL`() {

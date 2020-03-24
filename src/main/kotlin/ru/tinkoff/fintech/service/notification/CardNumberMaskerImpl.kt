@@ -1,5 +1,8 @@
 package ru.tinkoff.fintech.service.notification
 
+import org.springframework.stereotype.Service
+
+@Service
 class CardNumberMaskerImpl : CardNumberMasker {
 
     /**
@@ -12,7 +15,7 @@ class CardNumberMaskerImpl : CardNumberMasker {
         }
 
         //проверка пустоты номера карты
-        if (cardNumber == null || cardNumber.isBlank() || start == end) {
+        if (cardNumber.isBlank() || start == end) {
             return cardNumber
         }
 
